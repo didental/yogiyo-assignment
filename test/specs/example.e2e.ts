@@ -1,15 +1,14 @@
-import LoginPage from  '../pageobjects/login.page';
-import SecurePage from '../pageobjects/secure.page';
+import MainPage from '../pageobjects/main.page';
 
 describe('My Login application', () => {
-    it('should login with valid credentials', async () => {
-        await LoginPage.open();
+    before(async () => {
+        await MainPage.open('https://www.yogiyo.co.kr/mobile/#/');
 
-        await LoginPage.login('tomsmith', 'SuperSecretPassword!');
-        await expect(SecurePage.flashAlert).toBeExisting();
-        await expect(SecurePage.flashAlert).toHaveTextContaining(
-            'You logged into a secure area!');
+        await MainPage.setAddress('판교대장로77');
+        await MainPage.addressSearchBtn.click();
     });
+
+
 });
 
 
