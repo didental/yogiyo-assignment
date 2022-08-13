@@ -17,6 +17,10 @@ class MainPage extends Page {
 
   public async setAddress(address: string) {
     await this.addressInput.setValue(address);
+    await this.addressSearchBtn.click();
+    
+    // wait for display srp page
+    await (await $('.item.clearfix')).waitForDisplayed();
   }
 
 }

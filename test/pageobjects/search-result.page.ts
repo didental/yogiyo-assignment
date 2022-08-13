@@ -7,13 +7,27 @@ class SearchResultPage extends Page {
   /**
    * define selectors using getter methods
    */
+  public get showCategoryBtn() {
+    return $('#category-menu');
+  }
   public get categories() {
-    return $(`li[ng-repeat='ct in session_storage.categories'] > span`);
+    return $$(`ul > li > span.category-name.ng-binding`);
+  }
+
+  public async isCategoryHidden() {
+    return await (await this.showCategoryBtn).isClickable()
   }
 
   public async getCategoryNames() {
-    await this.categories
+    if (this.isCategoryHidden()) {
+      await (await this.showCategoryBtn).click();
+    }
+
+    let categories = await this.categories.map(el => el.getText());
+    // console.log(categories);
+    return categories;
   }
+
 
 }
 
